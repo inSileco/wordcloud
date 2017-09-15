@@ -49,7 +49,7 @@ docs %<>% tm_map(substit, from="SDMs", to="SDM")
 # cat("*Wourdcloud to be added* <br/><br/>")
 dtm <- DocumentTermMatrix(docs)
 freq <- colSums(as.matrix(dtm))
-datdoc <- data.frame(names=names(freq), freq=freq)
+datdoc <- data.frame(word = names(freq), freq = freq)
 datdoc <- datdoc[rev(order(datdoc$freq)), ]
 datext <- data.frame(
   word = c("R", "Open-data", "Open-Science", "Markdown", "Latex", "Python", "C/C++", "Web", "Javascript", "Julia"),
@@ -58,7 +58,7 @@ datext <- data.frame(
 ## Combine the dataset / order and keeb the 500 more frequent words
 dat <- rbind(datext, datdoc)
 dat <- dat[rev(order(dat$freq)),]
-dat <- dat[1:500,]
+dat <- dat[1:1000,]
 # print(head(dat))
 
 
@@ -66,11 +66,16 @@ dat <- dat[1:500,]
 ###################
 
 #####------ Creating the wordcloud
+
+### NB: there is a pb with the use of mask.... you need to refresh a couple
+### of time before getting the wordcloud... which prevent webshot from
+### working well...
+### See https://github.com/Lchiffon/wordcloud2/issues/12
 # imgwc <- "assets/img/butterfly.png"
 # imgwc <- "assets/img/favicon.png"
-imgwc <- "./img/tortue.png"
+imgwc <- paste0(getwd(),"/img/tortue.png")
 wc_aut <- wordcloud2(dat, figPath=imgwc, size = 1, color="black", backgroundColor="white")
 ##
 saveWidget(wc_aut, "./ourWordcloud.html", selfcontained = TRUE)
 ## convert into png
-webshot("ourWordcloud.html", "img/ourWordcloud.png", delay = 10)
+# webshot("ourWordcloud.html", "img/ourWordcloud.png", delay = 10)
