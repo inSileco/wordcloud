@@ -1,5 +1,6 @@
 ######## Last update KevCaz 14-09-2017
 
+# webshot("ourWordclou
 ####----- Packages
 library(tm)
 library(wordcloud2)
@@ -14,7 +15,7 @@ library(webshot)
 # Text mining reference: http://onepager.togaware.com/TextMiningO.pdf
 # the bash code below should be executed in your terminal when a new publication
 # is added in the dropbox folder:
-# for f in ~/Dropbox/LetiR/publi/*.pdf; pdftotext -enc ASCII7 -nopgbrk $f"
+# for f in ~/Dropbox/LetiR/publi/*.pdf; pdftotext -enc ASCII7 -nopgbrk $f
 docs <- Corpus(
   DirSource(
     directory = "~/Dropbox/LetiR/publi",
@@ -27,7 +28,8 @@ stopwords_pers <-  c(
   "hence", "since", "university", "can", "also", "null", "using", "may",
   "first", "will", "one", "two", "three", "fig", "tab", "eqn", "therefore",
   "gravel", "des", "although", "aij", "clearly", "cazelles", "araujo", "lett",
-  "res", "thuiller", "biol"
+  "res", "thuiller", "biol", "les", "une", "que", "dans", "son", "etre", "est",
+  "qui", "within"
   )
 docs %<>% tm_map(content_transformer(tolower))
 docs %<>% tm_map(removeNumbers)
@@ -73,9 +75,8 @@ dat <- dat[1:1000,]
 ### See https://github.com/Lchiffon/wordcloud2/issues/12
 # imgwc <- "assets/img/butterfly.png"
 # imgwc <- "assets/img/favicon.png"
-imgwc <- paste0(getwd(),"/img/tortue.png")
-wc_aut <- wordcloud2(dat, figPath=imgwc, size = 1, color="black", backgroundColor="white")
+wc_aut <- wordcloud2(dat, figPath="img/tortue.png", size = 2, color="black", backgroundColor="white")
+wc_aut
 ##
-saveWidget(wc_aut, "./ourWordcloud.html", selfcontained = TRUE)
-## convert into png
-# webshot("ourWordcloud.html", "img/ourWordcloud.png", delay = 10)
+saveWidget(wc_aut, file = "ourWordcloud.html", selfcontained = TRUE)
+## convert into pngd.html", "fig/ourWordcloud.png", delay = 10)
